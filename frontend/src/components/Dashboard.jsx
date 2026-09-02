@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const Dashboard = () => {
   const [user, setUser] = useState(null);
   const [documents, setDocuments] = useState([]);
@@ -14,7 +16,7 @@ const Dashboard = () => {
 
   const fetchDocuments = async (token) => {
     try {
-      const res = await axios.get('http://localhost:5000/api/documents', {
+      const res = await axios.get(`${API_URL}/api/documents`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setDocuments(res.data);
@@ -81,7 +83,7 @@ const Dashboard = () => {
     formData.append('document', selectedFile);
 
     try {
-      await axios.post('http://localhost:5000/api/documents/upload', formData, {
+      await axios.post(`${API_URL}/api/documents/upload`, formData, {
         headers: { 
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
@@ -101,7 +103,7 @@ const Dashboard = () => {
     setVerifyingId(docId);
     const token = localStorage.getItem('token');
     try {
-      await axios.post(`http://localhost:5000/api/documents/${docId}/verify`, {}, {
+      await axios.post(`${API_URL}/api/documents/${docId}/verify`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchDocuments(token);
