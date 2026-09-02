@@ -19,5 +19,8 @@
     "multer": "^2.3.0",
     "sqlite3": "^6.0.1",
     "tesseract.js": "^7.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
